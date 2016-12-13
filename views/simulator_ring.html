@@ -3,6 +3,7 @@
 	<meta http-equiv="X-UA-Compatible"content="IE=edge">
 	<title>转盘模拟器</title>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/conf/zhuanpan.js"></script>
 	<script>
 		var stats={};
 		$("document").ready(function(){
@@ -41,7 +42,7 @@
 				}else{
 					var l_id = "";
 					for(k in l){
-						l_id += l[k].i + ",";
+						l_id += zhuanpan(l[k].i) + ",";
 						if(stats[l[k].i]) {
 							stats[l[k].i] ++;
 						}else{
