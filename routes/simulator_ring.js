@@ -24,9 +24,11 @@ handler.index =  function(req,res) {
 			var newrespdata = {}
 			newrespdata.code = respdata.code
 			newrespdata.data = []
-			for (var i = 0; i < respdata.data.l.length; i++) {
-			        newrespdata.data.push(zhuanpan[respdata.data.l[i].i])
-			}
+                        if (respdata.data) {
+                                for (var i = 0; i < respdata.data.l.length; i++) {
+                                        newrespdata.data.push(zhuanpan[respdata.data.l[i].i])
+                                }
+                        }
                         res.end(JSON.stringify(newrespdata));
                 });
 }
