@@ -38,7 +38,10 @@
 			});
 		});
 		window.play_gacha=function(uid,iid,num){
-			if(num == 0) return;
+			if(num == 0){
+				 alert("模拟结束");
+				 return;
+			}
 			$.ajax({url:'/sumulator_gacha/?p=<%=p %>&uid='+uid+'&iid='+iid,async:false,beforeSend:function(){},success:function(resp) {
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
