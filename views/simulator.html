@@ -9,9 +9,10 @@
 		$("document").ready(function(){
 			$.ajaxSetup({cache:false})
 			$("#start").click(function(){
-                                if(!card_hash) {
-                                        alert("静态数据加载中");return;
-                                }
+                if(!card_hash) {
+                        alert("静态数据加载中");
+                        return;
+                }
 				stats={};
 //				alert($("#wuid").val());
 				$.get('/simulator_checkin/?p=<%=p %>&wuid='+$("#wuid").val(), function(resp){
@@ -19,8 +20,8 @@
 					var r = JSON.parse(resp);
 					var tu = r['data']['tu'];
 					if(tu>0){
-	                                        var cv = "用户登录:" + r['n']
-        	                                $("#console").html(cv);
+                        var cv = "用户登录:" + r['n']
+                        $("#console").html(cv);
 						play_gacha(tu,$("#gid").val(),$("#num").val());
 					}
 				});
@@ -28,7 +29,8 @@
 			
 			$("#stat").click(function(){
 				if(!card_hash) {
-					alert("静态数据加载中");return;
+					alert("静态数据加载中");
+					return;
 				}
 				var stats_content = JSON.stringify(stats);
 				eval('var stats_str = \''+stats_content+'\';');

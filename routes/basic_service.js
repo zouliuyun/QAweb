@@ -20,6 +20,7 @@ handler.index = function(req,res) {
                 for(i in js_arr){
                         resp += 'var '+js_arr[i]+' = '+eval('JSON.stringify(BS.'+js_arr[i]+')')+';';
                 }
+                console.log(resp)
                 res.end(resp);
         });
 }
