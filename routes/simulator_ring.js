@@ -20,6 +20,7 @@ handler.index =  function(req,res) {
                         return res.render('simulator_ring');
                 }
                 PostCode(game_host[p],'8609','/refresh/ring/select_list',{'uid':uid}, function(respdata){
+                        console.log('1',respdata)
 			var newrespdata = {}
 			newrespdata.code = respdata.code			
                         if (respdata.data) {
@@ -30,6 +31,7 @@ handler.index =  function(req,res) {
                         }else {
                                 newrespdata.msg = respdata.msg
                         }
+                        console.log('2',newrespdata)
                         res.end(JSON.stringify(newrespdata));
                 });
 }
