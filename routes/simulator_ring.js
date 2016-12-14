@@ -21,12 +21,14 @@ handler.index =  function(req,res) {
                 }
                 PostCode(game_host[p],'8609','/refresh/ring/select_list',{'uid':uid}, function(respdata){
 			var newrespdata = {}
-			newrespdata.code = respdata.code
-			newrespdata.data = []
+			newrespdata.code = respdata.code			
                         if (respdata.data) {
+                                newrespdata.data = []
                                 for (var i = 0; i < respdata.data.l.length; i++) {
                                         newrespdata.data.push(zhuanpan[respdata.data.l[i].i])
                                 }
+                        }else {
+                                newrespdata.msg = respdata.msg
                         }
                         res.end(JSON.stringify(newrespdata));
                 });
