@@ -51,3 +51,52 @@ handler.PostCode = function(host,port,path,namedvaluepair,cb) {
 }
 
 
+handler.PostCodezip = function(host,port,path,namedvaluepair,cb) {
+  var post_data = querystring.stringify(namedvaluepair);
+
+  var post_options = {
+      host: host,
+      port: port,
+      path: path,
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Length': post_data.length
+      }
+  };
+
+  var post_req = http.request(post_options, function(res) {
+      var body = "";
+
+      var output;
+      if(res.headers['content-encoding'] == 'deflate' ) {
+        var gzip = zlib.createInflate();
+        res.pipe(gzip);
+        output = gzip;
+      }else if(res.headers['content-encoding'] == 'gzip' ){
+        var gzip = zlib.createGunzip();
+        res.pipe(gzip);
+        output = gzip;
+      } else {
+        output = res;
+      }
+
+      output.on('data', function (data) {
+        data = data.toString('utf-8');
+        body += data;
+      });
+
+      output.on('end', function() {
+        console.log(path);
+        console.log('POST:'+post_data);
+        console.log("");
+        //console.log("RESPONSE:");
+        //console.log(JSON.stringify(JSON.parse(body), null, '    '));
+        if(cb) cb(JSON.parse(body));
+      });
+  }).on('error', function(error) {console.log(error);});
+
+  // post the data
+  post_req.write(post_data);
+  post_req.end();
+}
