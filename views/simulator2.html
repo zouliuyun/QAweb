@@ -1,0 +1,94 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible"content="IE=edge">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<title>NBA2选秀模拟器</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		var stats={};
+		$("document").ready(function(){
+			$.ajaxSetup({cache:false})
+			$("#start").click(function(){
+                if(!card_hash) {
+                        alert("静态数据加载中");
+                        return;
+                }
+				stats={};
+//				alert($("#wuid").val());
+				$.get('/simulator_checkin/?p=<%=p %>&wuid='+$("#wuid").val(), function(resp){
+					//$("#console").html(resp);
+					var r = JSON.parse(resp);
+					var tu = r['data']['tu'];
+					if(tu>0){
+                        var cv = "用户登录:" + r['n']
+                        $("#console").html(cv);
+						play_gacha(tu,$("#gid").val(),$("#num").val());
+					}
+				});
+			});
+			
+			$("#stat").click(function(){
+				if(!card_hash) {
+					alert("静态数据加载中");
+					return;
+				}
+				var stats_content = JSON.stringify(stats);
+				eval('var stats_str = \''+stats_content+'\';');
+				alert(stats_str);
+			});
+		});
+		window.play_gacha=function(uid,iid,num){
+			if(num == 0){
+				 alert("模拟结束");
+				 return;
+			}
+			$.ajax({url:'/simulator_gacha2/?p=<%=p %>&uid='+uid+'&nid='+iid,async:false,beforeSend:function(){},success:function(resp) {
+				var cv = $("#console").html();
+				var r = JSON.parse(resp);
+				if(r["code"] != 200){
+					$("#console").html(cv+"\r\n"+resp);
+				}else{
+					var c_id = "";
+					for(i in r["cards"]){
+						c_id +=card_hash[r["cards"][i]["i"]].n + ",";
+						if(stats[card_hash[r["cards"][i]["i"]].n]) {
+							stats[card_hash[r["cards"][i]["i"]].n] ++;
+						}else{
+							stats[card_hash[r["cards"][i]["i"]].n] = 1;
+						}
+					}
+					$("#console").html(cv+"\n"+c_id);
+				}
+				setTimeout(function(){play_gacha(uid, iid, num-1)},1000);
+			}});
+			
+		};
+	</script>
+</head>
+<body style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
+	<h1 align="center">选秀模拟器</h1>
+		<label>wuid:</label>
+		<input id="wuid" name="wuid" type="text" />
+		<label>选秀id:</label>
+		<input id="gid" name="gid" type="text" />
+		<label>次数:</label>
+		<input id="num" name="num" tpye="text" />
+		<button id="start">开始选秀</button>
+		<button id="stat">统计</button>
+	<h5>说明:</h5>
+	<ul>
+		<li>
+			此工具仅为模拟大量抽卡之用，不能作为测试游戏正确性的依据
+		</li>
+		<li>
+			在开始选秀前，请保证wuid和选秀id的正确性，并保证wuid的帐户中有足够的钻石
+		</li>
+	</ul>
+	<p>
+		<textarea id="console" style="width:1220px;height:300px;"></textarea>
+	</p>
+	<hr>
+	<a href="/process/">测服工具</a>
+</body>
+<script src="/basic_service/?js=card_hash" charset="utf-8"></script>
+</html>

@@ -27,11 +27,13 @@ var setDateTime2 = require('./routes/setDateTime2');
 var setDateTime = require('./routes/setDateTime');
 var simulator_checkin = require('./routes/simulator_checkin');
 var simulator = require('./routes/simulator');
+var simulator2 = require('./routes/simulator2');
 var simulator_liansai = require('./routes/simulator_liansai');
 var simulator_pack = require('./routes/simulator_pack');
 var simulator_ring = require('./routes/simulator_ring');
 var simulator_threepoint = require('./routes/simulator_threepoint');
 var simulator_gacha = require('./routes/simulator_gacha');
+var simulator_gacha2 = require('./routes/simulator_gacha2');
 var time = require('./routes/time');
 
 app.all('/basic_service/', basic_service.index);
@@ -46,11 +48,13 @@ app.all('/setDateTime2/', setDateTime2.index);
 app.all('/setDateTime/', setDateTime.index);
 app.all('/simulator_checkin/', simulator_checkin.index);
 app.all('/simulator/', simulator.index);
+app.all('/simulator2/', simulator2.index);
 app.all('/simulator_liansai/', simulator_liansai.index);
 app.all('/simulator_pack/', simulator_pack.index);
 app.all('/simulator_ring/', simulator_ring.index);
 app.all('/simulator_threepoint/', simulator_threepoint.index);
 app.all('/simulator_gacha/', simulator_gacha.index);
+app.all('/simulator_gacha2/', simulator_gacha2.index);
 app.all('/time/', time.index);
 
 
