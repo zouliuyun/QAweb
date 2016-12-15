@@ -2,6 +2,7 @@ var handler = module.exports;
 var http = require('http');
 var querystring = require('querystring');
 var fs = require('fs');
+var zlib = require('zlib');
 
 handler.PostCode = function(host,port,path,namedvaluepair,cb) {
   var post_data = querystring.stringify(namedvaluepair);
