@@ -15,7 +15,7 @@
                 }
 				stats={};
 //				alert($("#wuid").val());
-				$.get('/simulator_checkin/?p=<%=p %>&wuid='+$("#wuid").val(), function(resp){
+				$.get('/simulator_checkin2/?p=<%=p %>&wuid='+$("#wuid").val(), function(resp){
 					//$("#console").html(resp);
 					var r = JSON.parse(resp);
 					var tu = r['data']['tu'];
