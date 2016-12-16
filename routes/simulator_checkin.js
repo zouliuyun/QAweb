@@ -11,7 +11,9 @@ var script_path = "bin/daemon/";
 PostCode=require('../models/until').PostCode;
 
 handler.index = function(req,res) {
-                var wuid = parseInt(req.query.wuid);
+                var wuid = String(req.query.wuid);
+                console.log(wuid)
+                //var wuid = parseInt(req.query.wuid);
                 var p = req.query.p + "";
                 PostCode(game_host[p],'8601','/checkin/test/wuid',{'wuid':wuid,'adminnum':'denanba','adminhash':'yueruqianwan'}, function(respdata){
                         console.log(respdata);        

@@ -12,7 +12,8 @@ PostCodezip=require('../models/until').PostCodezip;
 
 
 handler.index = function(req,res) {
-                var wuid = parseInt(req.query.wuid);
+		var wuid = String(req.query.wuid);
+                //var wuid = parseInt(req.query.wuid);
                 var p = req.query.p + "";
                 PostCodezip(game_host[p],'8601','/checkin/test/wuid',{'wuid':wuid,'adminnum':'denanba','adminhash':'yueruqianwan'}, function(respdata){
                         res.end(JSON.stringify(respdata));
