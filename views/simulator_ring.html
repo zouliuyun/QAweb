@@ -31,6 +31,7 @@
 				 alert("模拟结束");
 				 return;
 			}
+			var selectre = new RegExp(select);
 			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid+'&select='+select,async:false,beforeSend:function(){},success:function(resp) {
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
@@ -47,11 +48,11 @@
                                                         stats[l[k]] = 1;
                                                 }
                                         }
-                    if (r["msg"] != "select"){
+                    if (selectre.test(l)){
 						$("#console").html(cv+"\n"+r["data"]);
 					}
 				}
-				setTimeout(function(){play_gacha(uid, iid, num-1,select)},500);
+				setTimeout(function(){play_gacha(uid, iid, num-1,select)},1000);
 			}});
 			
 		};

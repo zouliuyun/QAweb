@@ -13,7 +13,6 @@ var zhuanpan = require('../conf/zhuanpan').data;
 
 handler.index =  function(req,res) {
                 var uid = parseInt(req.query.uid);
-                var select=new RegExp(String(req.query.select)) 
                 var p = req.query.p + "";
                 if(!uid) {
                         if(!p) p=1;
@@ -25,17 +24,10 @@ handler.index =  function(req,res) {
 			var newrespdata = {}
 			newrespdata.code = respdata.code			
                         if (respdata.data) {                         
-                                var flag = 0 
                                 newrespdata.data = []
                                 for (var i = 0; i < respdata.data.l.length; i++) {
                                         var str1 = zhuanpan[respdata.data.l[i].i]
                                         newrespdata.data.push(str1)
-                                        if (str1.match(select)) {
-                                                flag=1
-                                        }
-                                }
-                                if (flag) {
-                                        newrespdata.msg="select"
                                 }
                         }else {
                                 newrespdata.msg = respdata.msg
