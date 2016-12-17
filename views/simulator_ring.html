@@ -15,9 +15,9 @@
 					var r = JSON.parse(resp);
 					var tu = r['data']['tu'];
 					if(tu>0){
-	                                        var cv = "用户登录:" + r['n']
+	                                        var cv = "用户登录:" + r['n']+" （只显示出现了新增物品组的数据）"
         	                                $("#console").html(cv);
-						play_gacha(tu,$("#gid").val(),$("#num").val());
+						play_gacha(tu,$("#gid").val(),$("#num").val(),$("#select").val());
 					}
 				});
 			});
@@ -26,12 +26,12 @@
 				alert(JSON.stringify(stats));
 			});
 		});
-		window.play_gacha=function(uid,iid,num){
+		window.play_gacha=function(uid,iid,num,select){
 			if(num == 0){
 				 alert("模拟结束");
 				 return;
 			}
-			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid,async:false,beforeSend:function(){},success:function(resp) {
+			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid+'&select='+select,async:false,beforeSend:function(){},success:function(resp) {
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
 				var l = r["data"];
@@ -47,9 +47,11 @@
                                                         stats[l[k]] = 1;
                                                 }
                                         }
-					$("#console").html(cv+"\n"+r["data"]);
+                    if (r["msg"] != "select"){
+						$("#console").html(cv+"\n"+r["data"]);
+					}
 				}
-				setTimeout(function(){play_gacha(uid, iid, num-1)},500);
+				setTimeout(function(){play_gacha(uid, iid, num-1,select)},500);
 			}});
 			
 		};
@@ -59,10 +61,12 @@
 	<h1 align="center">转盘模拟器</h1>
 		<label>wuid:</label>
 		<input id="wuid" name="wuid" type="text" />
+		<label>新增物品组id或名字:</label>
+		<input id="select" name="select" tpye="text" />
 		<label>次数:</label>
-		<input id="num" name="num" tpye="text" />
-		<button id="start">重置</button>
-		<button id="stat">统计</button>
+		<input id="num" name="num" tpye="text" /><br/>
+		<button id="start">刷新转盘</button>
+		<button id="stat">统计刷新结果</button>
 	<h5>说明:</h5>
 	<ul>
 		<li>
