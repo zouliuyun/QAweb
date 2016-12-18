@@ -35,7 +35,6 @@
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
 				var l = r.data.l;
-				//alert(resp);
 				if(r["code"] != 200){
 					$("#console").html(cv+"\r\n"+resp);
 				}else{
@@ -48,9 +47,9 @@
 							stats[l[k].i] = 1;
 						}
 					}
-					$("#console").html(cv+"\n"+l_id);
+					$("#console").html(cv+"\n"+r["data"]);
 				}
-				setTimeout(function(){play_gacha(uid, iid, num-1)},200);
+				setTimeout(function(){play_gacha(uid, iid, num-1)},500);
 			}});
 			
 		};
