@@ -8,14 +8,13 @@ var gmTool = conf[0].gmTool
 var game_host = conf[1].game_host
 var project_path = "/home/nba/nba_game_server/";
 var script_path = "bin/daemon/";
-PostCode=require('../models/until').PostCodezip;
+PostCodezip=require('../models/until').PostCodezip;
 
 
 handler.index = function(req,res) {
                 var wuid = parseInt(req.query.wuid);
                 var p = req.query.p + "";
-                PostCode(game_host[p],'8601','/checkin/test/wuid',{'wuid':wuid,'adminnum':'denanba','adminhash':'yueruqianwan'}, function(respdata){
-                        console.log(respdata);        
+                PostCodezip(game_host[p],'8601','/checkin/test/wuid',{'wuid':wuid,'adminnum':'denanba','adminhash':'yueruqianwan'}, function(respdata){
                         res.end(JSON.stringify(respdata));
                 });
 }
