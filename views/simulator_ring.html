@@ -15,7 +15,7 @@
 					var r = JSON.parse(resp);
 					var tu = r['data']['tu'];
 					if(tu>0){
-	                                        var cv = "用户登录:" + r['n']+" （只显示出现了新增物品组的数据）"
+	                                        var cv = "用户登录:" + r['n']+" （出现新增物品组则停止）"
         	                                $("#console").html(cv);
 						play_gacha(tu,$("#gid").val(),$("#num").val(),$("#select").val());
 					}
@@ -32,7 +32,7 @@
 				 return;
 			}
 			var selectre = new RegExp(select);
-			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid+'&select='+select,async:false,beforeSend:function(){},success:function(resp) {
+			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid,async:false,beforeSend:function(){},success:function(resp) {
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
 				var l = r["data"];
@@ -50,6 +50,7 @@
                                         }
                     if (selectre.test(l)){
 						$("#console").html(cv+"\n"+r["data"]);
+						num = 1;
 					}
 				}
 				setTimeout(function(){play_gacha(uid, iid, num-1,select)},1000);
