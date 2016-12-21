@@ -36,6 +36,7 @@ var simulator_threepoint = require('./routes/simulator_threepoint');
 var simulator_gacha = require('./routes/simulator_gacha');
 var simulator_gacha2 = require('./routes/simulator_gacha2');
 var time = require('./routes/time');
+var simulator_circle2 = require('./routes/simulator_circle2');
 
 app.all('/basic_service/', basic_service.index);
 app.all('/branch/', branch.index);
@@ -58,6 +59,7 @@ app.all('/simulator_threepoint/', simulator_threepoint.index);
 app.all('/simulator_gacha/', simulator_gacha.index);
 app.all('/simulator_gacha2/', simulator_gacha2.index);
 app.all('/time/', time.index);
+app.all('/simulator_circle2/', simulator_circle2.index);
 
 
 
