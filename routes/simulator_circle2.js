@@ -28,7 +28,6 @@ handler.index =  function(req,res) {
                                 for (var i = 0; i < respdata.circle.length; i++) {
                                         var str2=respdata.circle[i].i[0].i[0].i
                                         var str1 = circle[str2]
-                                        console.log(str2)
                                         newrespdata.circle.push(str1)
                                 }
                         }else {
