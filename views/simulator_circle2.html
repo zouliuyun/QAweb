@@ -35,7 +35,7 @@
                         $.ajax({url:'/simulator_circle2/?p=<%=p %>&uid='+uid,async:false,beforeSend:function(){},success:function(resp) {
                                 var cv = $("#console").html();
                                 var r = JSON.parse(resp);
-                                var l = r["cirle"];
+                                var l = r["circle"];
                                 if(r["code"] != 200){
                                         $("#console").html(cv+"\r\n"+resp);
                                 }else{

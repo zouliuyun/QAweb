@@ -19,15 +19,17 @@ handler.index =  function(req,res) {
                         res.locals.p = p;
                         return res.render('simulator_circle2');
                 }
-                PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid}, function(respdata){
+                PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid,'lock':''}, function(respdata){
                         console.log('1',respdata)
                         var newrespdata = {}
-                        newrespdata.code = respdata.code                        
-                        if (respdata.cirle) {                         
-                                newrespdata.cirle = []
-                                for (var i = 0; i < respdata.cirle.length; i++) {
-                                        var str1 = circle[respdata.cirle[i].i]
-                                        newrespdata.cirle.push(str1)
+                        newrespdata.code = respdata.code
+                        if (respdata.circle) {
+                                newrespdata.circle = []
+                                for (var i = 0; i < respdata.circle.length; i++) {
+                                        var str2=respdata.circle[i].i[0].i[0].i
+                                        var str1 = circle[str2]
+                                        console.log(str2)
+                                        newrespdata.circle.push(str1)
                                 }
                         }else {
                                 newrespdata.msg = respdata.msg
