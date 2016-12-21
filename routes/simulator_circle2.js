@@ -23,11 +23,11 @@ handler.index =  function(req,res) {
                         console.log('1',respdata)
                         var newrespdata = {}
                         newrespdata.code = respdata.code                        
-                        if (respdata.cirle) {                         
-                                newrespdata.cirle = []
-                                for (var i = 0; i < respdata.cirle.length; i++) {
-                                        var str1 = circle[respdata.cirle[i].i]
-                                        newrespdata.cirle.push(str1)
+                        if (respdata.circle) {                         
+                                newrespdata.circle = []
+                                for (var i = 0; i < respdata.circle.length; i++) {
+                                        var str1 = circle[respdata.circle[i].i]
+                                        newrespdata.circle.push(str1)
                                 }
                         }else {
                                 newrespdata.msg = respdata.msg
