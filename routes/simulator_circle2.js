@@ -17,7 +17,7 @@ handler.index =  function(req,res) {
                 if(!uid) {
                         if(!p) p=1;
                         res.locals.p = p;
-                        return res.render('simulator_ring2');
+                        return res.render('simulator_circle2');
                 }
                 PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid}, function(respdata){
                         console.log('1',respdata)
