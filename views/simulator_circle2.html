@@ -17,7 +17,19 @@
                                         if(tu>0){
                                                 var cv = "用户登录:" + r['n']+" （出现新增物品组则停止刷新）"
                                                 $("#console").html(cv);
-                                                play_gacha(tu,$("#gid").val(),$("#num").val(),$("#select").val());
+                                                var num = $("#num").val();
+                                                var uid = tu;
+                                                var iid = $("#gid").val();
+                                                var select = $("#select").val()
+                                                while (num > 0) {
+                                                	num = num - 1; 
+                                                	setTimeout("play_gacha(uid, iid, num,select)",1000);	
+                                                }
+						                        if(num == 0){
+						                                 alert("模拟结束");
+						                                 return;
+						                        }
+                                                
                                         }
                                 });
                         });
@@ -27,12 +39,10 @@
                         });
                 });
                 window.play_gacha=function(uid,iid,num,select){
-                        if(num == 0){
-                                 alert("模拟结束");
-                                 return;
-                        }
                         var selectre = new RegExp(select);
-                        $.ajax({url:'/simulator_circle2/?p=<%=p %>&uid='+uid,async:false,beforeSend:function(){},success:function(resp) {
+                        $.ajax({url:'/simulator_circle2/?p=<%=p %>&uid='+uid,async:false,
+                        	beforeSend:function(){},
+                        	success:function(resp) {
                                 var cv = $("#console").html();
                                 var r = JSON.parse(resp);
                                 var l = r["circle"];
@@ -48,14 +58,13 @@
                                                         stats[l[k]] = 1;
                                                 }
                                         }
-                    if (selectre.test(l)){
+                    					if (selectre.test(l)){
                                                 $("#console").html(cv+"\n"+l);
                                                 num = 1;
                                         }
                                 }
-                                setTimeout(function(){play_gacha(uid, iid, num-1,select)},1000);
-                        }});
-                        
+                                
+                        }});     
                 };
         </script>
 </head>
