@@ -36,7 +36,6 @@
 				var r = JSON.parse(resp);
 				var l = r["data"];
 				if(r["code"] != 200){
-					alert(resp);
 					$("#console").html(cv+"\r\n"+resp);
 				}else{
 					var l_id = "";
