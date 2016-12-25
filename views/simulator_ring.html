@@ -34,19 +34,20 @@
 			$.ajax({url:'/simulator_ring/?p=<%=p %>&uid='+uid,async:false,beforeSend:function(){},success:function(resp) {
 				var cv = $("#console").html();
 				var r = JSON.parse(resp);
-				var l = r.data.l;
+				var l = r["data"];
 				if(r["code"] != 200){
+					alert(resp);
 					$("#console").html(cv+"\r\n"+resp);
 				}else{
 					var l_id = "";
-					for(k in l){
-						l_id += l[k].i + ",";
-						if(stats[l[k].i]) {
-							stats[l[k].i] ++;
-						}else{
-							stats[l[k].i] = 1;
-						}
-					}
+                                        for(k in l){
+                                                l_id += l[k] + ",";
+                                                if(stats[l[k]]) {
+                                                        stats[l[k]] ++;
+                                                }else{
+                                                        stats[l[k]] = 1;
+                                                }
+                                        }
 					$("#console").html(cv+"\n"+r["data"]);
 				}
 				setTimeout(function(){play_gacha(uid, iid, num-1)},500);
