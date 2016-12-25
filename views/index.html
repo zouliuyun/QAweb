@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>修改服务器时间</title>
+</head>
+<body  style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
+	<h1>修改服务器时间</h1>
+	<ul>
+		<form action="/setDatetime/" method="get">
+			<h4>简体sandbox/staging服务器</h4><pre><%- cnTime %></pre>
+			<input type="hidden" name="platform" value="0" />
+			<input type="datetime-local" name="user_date" />
+			<input type="submit" />
+		</form>
+	</ul>
+  <ul>
+	   <form action="/setDatetime/" method="get">
+	     <h4>繁体sandbox/staging服务器</h4><pre><%- tcTime %></pre>
+			 <input type="hidden" name="platform" value="1" />
+	     <input type="datetime-local" name="user_date" />
+	     <input type="submit" />
+	   </form>
+	</ul>
+	<a href="/?t=<%- tt %>">刷新当前时间</a> |
+	<a href="/process/">测服工具</a>
+</body>
+</html>

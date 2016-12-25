@@ -1,0 +1,160 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible"content="IE=edge">
+	<title>礼包模拟器</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+		var i1=[];
+		var stats_i1={};
+		var stats_cards={};
+		var stats_i2={};
+		var gift_price=0;
+                $("document").ready(function(){
+			$.ajaxSetup({cache:false})
+                        $("#start").click(function(){
+                                if(!card_hash || !item_hash) {
+                                        alert("静态数据加载中");return;
+                                }
+
+				stats_i1={};
+				stats_cards={};
+				stats_i2={};
+				gift_price=$("#gp").val();
+//                              alert($("#wuid").val());
+                                $.ajax({url:'/simulator_checkin/?p=<%=p %>&wuid='+$("#wuid").val(), type:'get', success:function(resp){
+                                        //$("#console").html(resp);
+                                        var r = JSON.parse(resp);
+                                        var tu = r['data']['tu'];
+                                        if(tu>0){
+                                                var cv = "用户登录:" + r['n']
+                                                $("#console").html(cv);
+						i1 = r['data']['userbank']['ii'];
+                                                play_gacha(tu,$("#gid").val(),$("#num").val());
+                                        }
+                                }});
+                        });
+			
+			$("#stat").click(function(){
+                                if(!card_hash || !item_hash) {
+                                        alert("静态数据加载中");return;
+                                }
+//				alert("i1:" + JSON.stringify(stats_i1));
+//				alert("cards:"+JSON.stringify(stats_cards));
+//				alert("i2:"+JSON.stringify(stats_i2));
+                                var stats_i1_content = JSON.stringify(stats_i1);
+                                eval('var stats_i1_str = \''+stats_i1_content+'\';');
+                                alert("i1:"+stats_i1_str);
+                                var stats_i2_content = JSON.stringify(stats_i2);
+                                eval('var stats_i2_str = \''+stats_i2_content+'\';');
+                                alert("i2:"+stats_i2_str);
+                                var stats_cards_content = JSON.stringify(stats_cards);
+                                eval('var stats_cards_str = \''+stats_cards_content+'\';');
+                                alert(stats_cards_str);
+
+
+			});
+                });
+		function check_i1(arr, ii){
+//			alert(JSON.stringify(arr));
+//			alert(JSON.stringify(i1));
+			var cid="";
+			for(k in i1){
+				for(j in arr){
+					if(arr[j].i != i1[k].i) continue;
+					else{
+//						alert(JSON.stringify(arr[j]));
+//						alert(JSON.stringify(i1[k]));
+//						alert(arr[j].a - i1[k].a);
+						if(arr[j].a - i1[k].a > 0 || (arr[j].a - i1[k].a < 0 && i1[k].a - arr[j].a != gift_price && arr[j].i==30004)){
+				//			alert("k"+JSON.stringify(i1[k])+",j"+JSON.stringify(arr[j]));
+							if(isNaN(ii[item_hash[arr[j].i].n])) 
+								ii[item_hash[arr[j].i].n] = 1;
+							else 
+								ii[item_hash[arr[j].i].n]++;
+							cid += arr[j].i;
+							break;
+						}
+					}
+				}
+			}
+			i1 = arr;
+//			alert(JSON.stringify(ii));
+			return cid;
+		}
+                function play_gacha(uid,iid,num){
+                        if(num == 0){
+				 alert("模拟结束");
+				 return;
+			}
+                        $.get('/simulator_pack/?p=<%=p %>&uid='+uid+'&iid='+iid+"&t="+new Date().getTime(),function(resp) {
+                                var cv = $("#console").html();
+                                var r = JSON.parse(resp);
+                                if(r["code"] != 200){
+                                        $("#console").html(cv+"\r\n"+resp);
+                                }else{
+                                        var c_id = "";
+//					alert(JSON.stringify(i1));
+					if(r["i1"][0].i==30004){
+						r["i1"].shift();
+					}
+					var ci=check_i1(r["i1"],stats_i1);
+					if(ci)
+						c_id += item_hash[ci].n + "," ;
+//					alert(JSON.stringify(r));
+//					alert(JSON.stringify(stats_i1));	
+                                        for(i in r["cards"]){
+                                                c_id += card_hash[r["cards"][i]["i"]].n + ",";
+                                                if(stats_cards[card_hash[r["cards"][i]["i"]].n]) {
+                                                        stats_cards[card_hash[r["cards"][i]["i"]].n] ++;
+                                                }else{
+                                                        stats_cards[card_hash[r["cards"][i]["i"]].n] = 1;
+                                                }
+
+                                        }
+					for(i in r["i2"]){
+						c_id += item_hash[r["i2"][i]["i"]].n + ",";
+                                                if(stats_i2[item_hash[r["i2"][i]["i"]].n]) {
+                                                        stats_i2[item_hash[r["i2"][i]["i"]].n] ++;
+                                                }else{
+                                                        stats_i2[item_hash[r["i2"][i]["i"]].n] = 1;
+                                                }
+					}
+                                        $("#console").html(cv+"\n"+c_id);
+                                }
+				setTimeout(function(){play_gacha(uid, iid, num-1)},200);
+//                                play_gacha(uid, iid, num-1);
+                        });
+
+                };
+        </script>
+</head>
+<body style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
+        <h1 align="center">礼包模拟器</h1>
+                <label>wuid:</label>
+                <input id="wuid" name="wuid" type="text" value="138337681072324880" />
+                <label>礼包id:</label>
+                <input id="gid" name="gid" type="text" value="36584" />
+		<label>礼包价格:</label>
+		<input id="gp" type="text" value="99" />
+                <label>次数:</label>
+                <input id="num" name="num" type="text" />
+                <button id="start">开始购买</button>
+		<button id="stat">统计</button>
+        <h5>说明:</h5>
+        <ul>
+                <li>
+                        此工具仅为模拟大量购买礼包之用，不能作为测试游戏正确性的依据
+                </li>
+                <li>
+                        在开始选秀前，请保证wuid和礼包id的正确性，并保证wuid的帐户中有足够的钻石
+                </li>
+        </ul>
+        <p>
+                <textarea id="console" style="width:1220px;height:300px;"></textarea>
+        </p>
+        <hr>
+        <a href="/process/">测服工具</a>
+</body>
+<script src="/basic_service/?js=item_hash,card_hash" charset="utf-8"></script>
+</html>
+

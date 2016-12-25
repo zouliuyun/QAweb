@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>QA工具包</title>
+</head>
+<body style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
+  <h1 align="center">测服工具</h1>
+	<p align="center">
+		<% if(p!=4) { %><a href="/process/?p=4"><% }else { %><b><% } %>简体sandbox<% if(p!=4) { %></a><% }else { %></b><% } %> |
+		<% if(p!=3) { %><a href="/process/?p=3"><% }else { %><b><% } %>繁体sandbox<% if(p!=3) { %></a><% }else { %></b><% } %> |
+		<% if(p!=2) { %><a href="/process/?p=2"><% }else { %><b><% } %>简体staging<% if(p!=2) { %></a><% }else { %></b><% } %> |
+		<% if(p!=1) { %><a href="/process/?p=1"><% }else { %><b><% } %>繁体staging<% if(p!=1) { %></a><% }else { %></b><% } %> |
+		<% if(p!=7) { %><a href="/process/?p=7"><% }else { %><b><% } %>NBA2简体staging<% if(p!=7) { %></a><% }else { %></b><% } %> |
+                <% if(p!=8) { %><a href="/process/?p=8"><% }else { %><b><% } %>NBA2简体sandbox<% if(p!=8) { %></a><% }else { %></b><% } %> |
+		<% if(p!=9) { %><a href="/process/?p=9"><% }else { %><b><% } %>NBA2繁体staging<% if(p!=9) { %></a><% }else { %></b><% } %> |
+		<% if(p!=10) { %><a href="/process/?p=10"><% }else { %><b><% } %>NBA2简体staging2<% if(p!=10) { %></a><% }else { %></b><% } %> 
+	</p>
+	<p>
+		<a href="/process/?p=<%- p %>">查看进程</a> |
+		<a href="/log/?p=<%- p %>">查看日志</a> |
+		<a href="/branch/?p=<%- p %>">查看分支</a> | 
+		<a href="/pull/?p=<%- p %>" onclick="return confirm('更新代码操作可能会影响使用该服务器的用户，请确认');">更新代码</a> |
+		<a href="/restart/?p=<%- p %>"  onclick="return confirm('重起服务操作可能会影响使用该服务器的用户，请确认');">重起服务</a> |
+		<a href="/<% if(p==7 || p==8 || p==9 || p==10 || p==11 || p==12 || p ==13) {%>time/<% } %>">修改服务器时间</a> |
+		<a href="<%- gmtool %>" target=_blank>GMTool入口</a> |
+		<% if(p==4) { %><a href="http://web4-nba.mobage.cn/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==3) { %><a href="http://web3-nba.mobage.cn/client_data_tw/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==2) { %><a href="http://web2-nba.mobage.cn/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==1) { %><a href="http://web1-nba.mobage.cn/client_data_tw/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==5) { %><a href="http://119.15.139.138/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==7) { %><a href="http://web7-nba.mobage.cn/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+		<% if(p==8) { %><a href="http://web8-nba.mobage.cn/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+                <% if(p==9) { %><a href="http://web9-nba.mobage.cn/client_data_tw/" target=_blank>下载静态数据</a> |<% }%>
+                <% if(p==10) { %><a href="http://web10-nba.mobage.cn/client_data_cn/" target=_blank>下载静态数据</a> |<% }%>
+ 
+		<a href="http://172.21.174.127:8181/" target=_blank>烧包工具</a> |
+                <a href="http://172.21.174.30:9000/?p=<%- p %>">制作静态数据</a> |
+                <a href="http://172.21.174.30:9000/upgrade_hotfix/?p=<%- p %>">升级热修版本号</a> |
+		<a href="http://172.21.174.30:9000/update_fight/">更新战斗服</a> 
+	</p>
+	<p>
+                <a href="/simulator/?p=<%- p %>">NBA1选秀模拟器</a> |
+                <a href="/simulator_pack/?p=<%- p %>">NBA1礼包模拟器</a> |
+                <a href="/simulator_ring/?p=<%- p %>">NBA1转盘模拟器</a> |
+                <a href="/challenge/?p=<%- p %>"  onclick="return confirm('此操作可能会影响使用该服务器的用户，请确认');">刷天梯霸主</a> |
+                <a href="/quit/?p=<%- p %>"  onclick="return confirm('此操作可能会影响使用该服务器的用户，请确认');">退出俱乐部</a> 
+	</P>
+	<textarea style="width:1220px;height:300px;"><%- ps %></textarea>
+</body>
+</html>
+
