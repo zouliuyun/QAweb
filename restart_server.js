@@ -1,6 +1,10 @@
 var express = require('/home/nba/nba_game_server/node_modules/express');
+var bodyParser = require('body-parser');
 var http = require('http');
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 var ejs = require('/data/zhou/node_modules/ejs');
 app.set('views', 'views');
 app.engine('.html', ejs.__express);
