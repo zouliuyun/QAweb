@@ -1,97 +1,59 @@
 <html>
 <head>
+        <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible"content="IE=edge">
         <title>NBA2转转乐模拟器</title>
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>
-                var stats={};
-                $("document").ready(function(){
-                        $.ajaxSetup({cache:false})
-                        $("#start").click(function(){
-                                stats={};
-//                              alert($("#wuid").val());
-                                $.get('/simulator_checkin2/?p=<%=p %>&wuid='+$("#wuid").val(), function(resp){
-                                        //$("#console").html(resp);
-                                        var r = JSON.parse(resp);
-                                        var tu = r['data']['tu'];
-                                        if(tu>0){
-                                                var cv = "用户登录:" + r['n']+" （出现新增物品组则停止刷新）"
-                                                $("#console").html(cv);
-                                                var num = $("#num").val();
-                                                var uid = tu;
-                                                var iid = $("#gid").val();
-                                                var select = $("#select").val()
-                                                while (num > 0) {
-                                                	num = num - 1; 
-                                                	setTimeout("play_gacha(uid, iid, num,select)",1000);	
-                                                }
-						                        if(num == 0){
-						                                 alert("模拟结束");
-						                                 return;
-						                        }
-                                                
-                                        }
-                                });
-                        });
-                        
-                        $("#stat").click(function(){
-                                alert(JSON.stringify(stats));
-                        });
-                });
-                window.play_gacha=function(uid,iid,num,select){
-                        var selectre = new RegExp(select);
-                        $.ajax({url:'/simulator_circle2/?p=<%=p %>&uid='+uid,async:false,
-                        	beforeSend:function(){},
-                        	success:function(resp) {
-                                var cv = $("#console").html();
-                                var r = JSON.parse(resp);
-                                var l = r["circle"];
-                                if(r["code"] != 200){
-                                        $("#console").html(cv+"\r\n"+resp);
+		<script type="text/javascript">             
+                function tongji(){
+			var results = $("#console").html();
+                	alert(results);
+                	var stats={};
+			var result=results.replace(/[\n]/ig,',').split(",");
+                        for(k in result){
+                                if(stats[result[k]]) {
+                                        stats[result[k]] ++;
                                 }else{
-                                        var l_id = "";
-                                        for(k in l){
-                                                l_id += l[k] + ",";
-                                                if(stats[l[k]]) {
-                                                        stats[l[k]] ++;
-                                                }else{
-                                                        stats[l[k]] = 1;
-                                                }
-                                        }
-                    					if (selectre.test(l)){
-                                                $("#console").html(cv+"\n"+l);
-                                                num = 1;
-                                        }
+                                        stats[result[k]] = 1;
                                 }
-                                
-                        }});     
-                };
-        </script>
+                        }
+                    alert(JSON.stringify(stats));
+                }
+		</script>
 </head>
-<body style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
-        <h1 align="center">NBA2转转乐模拟器</h1>
-                <label>wuid:</label>
-                <input id="wuid" name="wuid" type="text" />
-                <label>新增物品组id或名字:</label>
-                <input id="select" name="select" tpye="text" />
-                <label>次数:</label>
-                <input id="num" name="num" tpye="text" />
-                <button id="start">刷新转盘</button><br/>
-                <br/>  
-                <button id="stat">统计刷新结果</button>
+<body class='container'>
+    <h1 align="center">NBA2转转乐模拟器</h1>
+    <div id='content' class='row-fluid'>
+      <div class='span4 sidebar'>
+        <form method='post'>
+          <p>玩家wuid:</br></br> <input type='text' name='wuid' id='wuid' placeholder='玩家wuid' value=<%= info.wuid %> /></p>
+          <p>新增物品组id或名字:</br></br> <input type='text' name='select' id='select' placeholder='新增物品组id或名字' value=<%= info.select %> /></p>
+          <p>次数:</br></br><input type='text' name='num' id='num'  value=<%= info.num %> /></p>
+          <p><input type='submit' name='submit' value='刷新转盘'/></p>
+        </form>
+        <br/>  
+        <input type='submit' value="统计结果" onclick='tongji();'/>
         <h5>说明:</h5>
         <ul>
                 <li>
-                        此工具仅为模拟大量重置转盘之用，不能作为测试游戏正确性的依据
+                        此工具仅为模拟大量刷新转盘之用，不能作为测试游戏正确性的依据
                 </li>
                 <li>
                         在开始重置转盘前，请保证wuid的正确性，并保证wuid的帐户中有足够的钻石
                 </li>
         </ul>
-        <p>
-                <textarea id="console" style="width:1220px;height:300px;"></textarea>
-        </p>
-        <hr>
-        <a href="/process/">测服工具</a>
+
+        </div>
+
+<div class='span8 main'>
+<textarea id="console" style="width:1220px;height:600px;">
+<% results.forEach(function (result, index) { %>
+<%= result.circle %>
+<% }) %>
+</textarea>
+</div>
+</div>
+<a href="/process/">测服工具</a>
 </body>
 </html>
