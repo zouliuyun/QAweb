@@ -60,7 +60,7 @@ handler.index =  function(req,res) {
                                         if (respdata.circle) {
                                                 newrespdata.circle = []
                                                 for (var i = 0; i < respdata.circle.length; i++) {
-                                                        var str2=respdata.circle[i].i[0].i[0].i
+                                                        var str2=respdata.circle[i].reward_id
                                                         var str1 = circle[str2]
                                                         newrespdata.circle.push(str1)
                                                 }
