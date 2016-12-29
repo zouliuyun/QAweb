@@ -60,8 +60,9 @@ handler.index =  function(req,res) {
                                         if (respdata.circle) {
                                                 newrespdata.circle = []
                                                 for (var i = 0; i < respdata.circle.length; i++) {
-                                                        var str2= String(respdata.circle[i].reward_id) + String(respdata.circle[i].event_id)
+                                                        var str2= String(respdata.circle[i].event_id)+String(respdata.circle[i].reward_id) 
                                                         var str1 = circle[str2]
+							console.log(str1,str2)
                                                         newrespdata.circle.push(str1)
                                                 }
 
