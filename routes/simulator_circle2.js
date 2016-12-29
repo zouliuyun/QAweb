@@ -39,7 +39,7 @@ handler.index =  function(req,res) {
                 var select = req.body.select + "";
                 var re=new RegExp(select)
                 PostCodezip(game_host[p],'8601','/checkin/test/wuid',{'wuid':wuid,'adminnum':'denanba','adminhash':'yueruqianwan'}, function(respdata){
-			console.log(respdata)
+			//console.log(respdata)
                         if(respdata.code != 200) {
                                 return res.render('simulator_circle2', {
                                 title: '统计数据',

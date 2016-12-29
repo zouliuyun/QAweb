@@ -6,19 +6,19 @@
         <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript">             
-                function tongji(){
-			var results = $("#console").html();
-                	var stats={};
-			var result=results.replace(/[\n]/ig,',').split(",");
-                        for(k in result){
-                                if(stats[result[k]]) {
-                                        stats[result[k]] ++;
-                                }else{
-                                        stats[result[k]] = 1;
-                                }
-                        }
-                    alert(JSON.stringify(stats));
-                }
+            function tongji(){
+        		var results = $("#console").html();
+            	var stats={};
+        		var result=results.replace(/[\n]/ig,',').split(",");
+                    for(k in result){
+                            if(stats[result[k]]) {
+                                    stats[result[k]] ++;
+                            }else{
+                                    stats[result[k]] = 1;
+                            }
+                    }
+                alert(JSON.stringify(stats));
+            }
 		</script>
 </head>
 <body class='container'>
@@ -35,6 +35,9 @@
         <input type='submit' value="统计结果" onclick='tongji();'/>
         <h5>说明:</h5>
         <ul>
+                <li>
+                        在设置次数内刷到新增物品组则停止请求，否则将所有次数用完再停止请求
+                </li>
                 <li>
                         此工具仅为模拟大量刷新转盘之用，不能作为测试游戏正确性的依据
                 </li>
