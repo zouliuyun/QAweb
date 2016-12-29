@@ -55,6 +55,7 @@ handler.index =  function(req,res) {
                             function (callback) {
                                 count++;
                                 PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid,'lock':''}, function(respdata){
+					newrespdata = {}
                                         //console.log('1',respdata)
                                         newrespdata.code = respdata.code
                                         if (respdata.circle) {
