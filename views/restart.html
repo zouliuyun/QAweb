@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>QA工具包</title>
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">		
 </head>
 <body style='font-family:Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", 宋体 !important'>
   <h1 align="center">测服工具</h1>
@@ -14,7 +15,7 @@
 		<% if(p!=9) { %><a href="/process/?p=9"><% }else { %><b><% } %>NBA2繁体staging<% if(p!=9) { %></a><% }else { %></b><% } %> |
 		<% if(p!=10) { %><a href="/process/?p=10"><% }else { %><b><% } %>NBA2简体staging2<% if(p!=10) { %></a><% }else { %></b><% } %> 
 	</p>
-	<p>
+	<p align="center">
 		<a href="/process/?p=<%- p %>">查看进程</a> |
 		<a href="/log/?p=<%- p %>">查看日志</a> |
 		<a href="/branch/?p=<%- p %>">查看分支</a> | 
@@ -37,13 +38,13 @@
                 <a href="http://172.21.174.30:9000/upgrade_hotfix/?p=<%- p %>">升级热修版本号</a> |
 		<a href="http://172.21.174.30:9000/update_fight/">更新战斗服</a> 
 	</p>
-	<p>
+	<p align="center">
                 <a href="/simulator/?p=<%- p %>">NBA1选秀模拟器</a> |
                 <a href="/simulator_pack/?p=<%- p %>">NBA1礼包模拟器</a> |
                 <a href="/simulator_ring/?p=<%- p %>">NBA1转盘模拟器</a> |
                <a href="/simulator_circle/?p=<%- p %>">NBA1转转乐模拟器</a> |
                 <a href="/simulator2/?p=<%- p %>">NBA2选秀模拟器</a> |
-                <a href="/simulator_circle2/?p=<%- p %>">NBA2转转乐模拟器</a> |
+                <a href="/simulator_circle2/?p=<%- p %>">NBA2转转乐模拟器</a> 
                 <!--<a href="/challenge/?p=<%- p %>"  onclick="return confirm('此操作可能会影响使用该服务器的用户，请确认');">刷天梯霸主</a> |
                 <a href="/quit/?p=<%- p %>"  onclick="return confirm('此操作可能会影响使用该服务器的用户，请确认');">退出俱乐部</a> -->
 	</P>
