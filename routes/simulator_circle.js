@@ -51,7 +51,7 @@ handler.index =  function(req,res) {
                         var count = 0;
 
                         async.whilst(
-                            function () { return count < num; },
+                            function () { return count <= num; },
                             function (callback) {
                                 count++;
                                 PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid,'lock':''}, function(respdata){
