@@ -49,32 +49,35 @@ handler.index =  function(req,res) {
                         var count = 0;
 
                         async.whilst(
-                            function () { return count < num; },
+                            function () { return count <= num; },
                             function (callback) {
-                                count++;
-                                PostCode(game_host[p],'8601','/refresh/ring/select_list',{'uid':uid}, function(respdata){
-                                        newrespdata = {}
-                                        console.log('1',respdata)
-                                        newrespdata.code = respdata.code
-                                        if (respdata.data) {
-						newrespdata.data=[]
-                                                for (var i = 0; i < respdata.data.l.length; i++) {
-                                                        var str1 = zhuanpan[respdata.data.l[i].i]
-                                                        newrespdata.data.push(str1)
+                                count++
+                                setTimeout(function () {
+                                        PostCode(game_host[p],'8601','/refresh/ring/select_list',{'uid':uid}, function(respdata){
+                                                newrespdata = {}
+                                                console.log('1',respdata)
+                                                newrespdata.code = respdata.code
+                                                if (respdata.data) {
+                                                        newrespdata.data=[]
+                                                        for (var i = 0; i < respdata.data.l.length; i++) {
+                                                                var str1 = zhuanpan[respdata.data.l[i].i]
+                                                                newrespdata.data.push(str1)
+                                                        }
+                                                }else {
+                                                        newrespdata.msg = respdata.msg
                                                 }
-                                        }else {
-                                                newrespdata.msg = respdata.msg
-                                        }
-                                        alldata.push(newrespdata)
-                                        if (respdata.data && String(respdata.data.l).match(re))
-                                                return res.render('simulator_ring', {
-                                                title: '统计数据',
-                                                results: alldata,
-                                                info: req.body
-                                                });
+                                                alldata.push(newrespdata)
+                                                if (respdata.data && String(newrespdata.data).match(re))
+                                                        return res.render('simulator_ring', {
+                                                        title: '统计数据',
+                                                        results: alldata,
+                                                        info: req.body
+                                                        });                                               
+                                                
+                                        })
                                         callback(null,alldata)
-                                        
-                                });
+                                }, 400);
+
                             },
                             function (err, alldata) {
                                 return res.render('simulator_ring', {
@@ -87,3 +90,4 @@ handler.index =  function(req,res) {
                 })
 
         }
+
