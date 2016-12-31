@@ -54,10 +54,10 @@ handler.index =  function(req,res) {
                                 count++;
                                 PostCode(game_host[p],'8601','/refresh/ring/select_list',{'uid':uid}, function(respdata){
                                         newrespdata = {}
-                                        //console.log('1',respdata)
+                                        console.log('1',respdata)
                                         newrespdata.code = respdata.code
                                         if (respdata.data) {
-                                                respdata.data = []
+						newrespdata.data=[]
                                                 for (var i = 0; i < respdata.data.l.length; i++) {
                                                         var str1 = zhuanpan[respdata.data.l[i].i]
                                                         newrespdata.data.push(str1)
@@ -66,8 +66,7 @@ handler.index =  function(req,res) {
                                                 newrespdata.msg = respdata.msg
                                         }
                                         alldata.push(newrespdata)
-                                        console.log('2',String(respdata.data))
-                                        if (respdata.data && String(respdata.data).match(re))
+                                        if (respdata.data && String(respdata.data.l).match(re))
                                                 return res.render('simulator_ring', {
                                                 title: '统计数据',
                                                 results: alldata,
