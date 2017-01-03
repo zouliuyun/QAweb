@@ -72,7 +72,7 @@ handler.index =  function(req,res) {
                                         }
                                         alldata.push(newrespdata)
                                         console.log('2',String(newrespdata.circle))
-                                        if (respdata.msg ||(respdata.circle && String(newrespdata.circle).match(re))
+                                        if (respdata.msg ||(respdata.circle && String(newrespdata.circle).match(re)))
                                                 return res.render('simulator_circle2', {
                                                 title: '统计数据',
                                                 results: alldata,
