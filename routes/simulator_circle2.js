@@ -58,8 +58,9 @@ handler.index =  function(req,res) {
 					newrespdata = {}
                                         //console.log('1',respdata)
                                         newrespdata.code = respdata.code
-                                        if (respdata.circle) {
-                                                newrespdata.circle = []
+                                        newrespdata.circle=[]
+                                        if (respdata.circle && respdata.code == 200) {
+                                                
                                                 for (var i = 0; i < respdata.circle.length; i++) {
                                                         var str2=respdata.circle[i].i[0].i[0].i
                                                         var str1 = circle[str2]
@@ -67,11 +68,11 @@ handler.index =  function(req,res) {
                                                 }
 
                                         }else {
-                                                newrespdata.msg = respdata.msg
+                                                newrespdata.circle.push(respdata.msg) 
                                         }
                                         alldata.push(newrespdata)
                                         console.log('2',String(newrespdata.circle))
-                                        if (respdata.circle && String(newrespdata.circle).match(re))
+                                        if (respdata.msg ||(respdata.circle && String(newrespdata.circle).match(re))
                                                 return res.render('simulator_circle2', {
                                                 title: '统计数据',
                                                 results: alldata,
