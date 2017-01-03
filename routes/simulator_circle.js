@@ -28,7 +28,7 @@ handler.index =  function(req,res) {
                 var newrespdata = {}
                 if(!req.body.wuid) {
                                 return res.render('simulator_circle', {
-                                title: '统计数据',
+                                msg: '请点击刷新转盘',
                                 results: alldata,
                                 info: info
                                  });
@@ -42,7 +42,7 @@ handler.index =  function(req,res) {
 			//console.log(respdata)
                         if(respdata.code != 200) {
                                 return res.render('simulator_circle', {
-                                title: '统计数据',
+                                msg: '=======登录失败=====',
                                 results: alldata,
                                 info: req.body
                                  });
@@ -56,7 +56,6 @@ handler.index =  function(req,res) {
                                 count++;
                                 PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid,'lock':''}, function(respdata){
 					newrespdata = {};
-                                        console.log('1',respdata)
                                         newrespdata.code = respdata.code
                                         newrespdata.circle = []
                                         if (respdata.circle ) {
@@ -69,13 +68,13 @@ handler.index =  function(req,res) {
                                                 }
 
                                         }else {
-                                                newrespdata.circle.push(respdata.msg)   
+						console.log(respdata)
                                         }
                                         alldata.push(newrespdata)
                                         console.log('2',String(newrespdata.circle))
                                         if (respdata.msg ||(respdata.circle && String(newrespdata.circle).match(re)))
                                                 return res.render('simulator_circle', {
-                                                title: '统计数据',
+                                                msg: respdata.msg || '=======刷新出指定物品=====',
                                                 results: alldata,
                                                 info: req.body
                                                 });
@@ -85,7 +84,7 @@ handler.index =  function(req,res) {
                             },
                             function (err, alldata) {
                                 return res.render('simulator_circle', {
-                                title: '统计数据',
+                                msg: '=======未刷新到指定物品=====',
                                 results: alldata,
                                 info: req.body
                                  });
