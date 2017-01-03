@@ -56,10 +56,10 @@ handler.index =  function(req,res) {
                                 count++;
                                 PostCode(game_host[p],'8601','/refresh/circle',{'uid':uid,'lock':''}, function(respdata){
 					newrespdata = {};
-                                        //console.log('1',respdata)
+                                        console.log('1',respdata)
                                         newrespdata.code = respdata.code
                                         newrespdata.circle = []
-                                        if (respdata.circle && respdata.code == 200) {
+                                        if (respdata.circle ) {
                                                 
                                                 for (var i = 0; i < respdata.circle.length; i++) {
                                                         var str2= String(respdata.circle[i].event_id)+String(respdata.circle[i].reward_id) 

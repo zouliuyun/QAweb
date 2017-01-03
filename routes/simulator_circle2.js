@@ -59,7 +59,7 @@ handler.index =  function(req,res) {
                                         //console.log('1',respdata)
                                         newrespdata.code = respdata.code
                                         newrespdata.circle=[]
-                                        if (respdata.circle && respdata.code == 200) {
+                                        if (respdata.circle ) {
                                                 
                                                 for (var i = 0; i < respdata.circle.length; i++) {
                                                         var str2=respdata.circle[i].i[0].i[0].i

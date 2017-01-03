@@ -58,7 +58,7 @@ handler.index =  function(req,res) {
                                                 console.log('1',respdata)
                                                 newrespdata.code = respdata.code
                                                 newrespdata.data=[]
-                                                if (respdata.data && respdata.code == 200 ) {                                                        
+                                                if (respdata.data ) {                                                        
                                                         for (var i = 0; i < respdata.data.l.length; i++) {
                                                                 var str1 = zhuanpan[respdata.data.l[i].i]
                                                                 newrespdata.data.push(str1)
