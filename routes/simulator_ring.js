@@ -57,17 +57,17 @@ handler.index =  function(req,res) {
                                                 newrespdata = {}
                                                 console.log('1',respdata)
                                                 newrespdata.code = respdata.code
-                                                if (respdata.data) {
-                                                        newrespdata.data=[]
+                                                newrespdata.data=[]
+                                                if (respdata.data && respdata.code == 200 ) {                                                        
                                                         for (var i = 0; i < respdata.data.l.length; i++) {
                                                                 var str1 = zhuanpan[respdata.data.l[i].i]
                                                                 newrespdata.data.push(str1)
                                                         }
                                                 }else {
-                                                        newrespdata.msg = respdata.msg
+                                                        newrespdata.data.push(respdata.msg)                                                        
                                                 }
                                                 alldata.push(newrespdata)
-                                                if (respdata.data && String(newrespdata.data).match(re))
+                                                if (respdata.msg ||(respdata.data && String(newrespdata.data).match(re)))
                                                         return res.render('simulator_ring', {
                                                         title: '统计数据',
                                                         results: alldata,
