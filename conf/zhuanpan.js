@@ -1,4 +1,4 @@
-zhuanpan={
+exports.data={
 1:"J.哈登",
 2:"钻石",
 3:"完美飞人头饰",

@@ -8,7 +8,8 @@ var gmTool = conf[0].gmTool
 var game_host = conf[1].game_host
 var project_path = "/home/nba/nba_game_server/";
 var script_path = "bin/daemon/";
-PostCode=require('../models/until').PostCode;
+var PostCode=require('../models/until').PostCode;
+var zhuanpan = require('../conf/zhuanpan').data;
 
 handler.index =  function(req,res) {
                 var uid = parseInt(req.query.uid);
@@ -19,7 +20,13 @@ handler.index =  function(req,res) {
                         return res.render('simulator_ring');
                 }
                 PostCode(game_host[p],'8601','/refresh/ring/select_list',{'uid':uid}, function(respdata){
-                        console.log(respdata);
-                        res.end(JSON.stringify(respdata));
+			console.log("1111111",JSON.stringify(respdata))
+			var newrespdata = {}
+			newrespdata.code = respdata.code
+			newrespdata.data = []
+			for (var i = 0; i < respdata.data.l.length; i++) {
+			        newrespdata.data.push(zhuanpan[respdata.data.l[i].i])
+			}
+                        res.end(JSON.stringify(newrespdata));
                 });
 }
