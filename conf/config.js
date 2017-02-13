@@ -8,7 +8,7 @@ exports.data=[
               "8":"http://web8-nba.mobage.cn:8888/",
               "9":"http://web9-nba.mobage.cn:8889/",
               "10":"http://web10-nba.mobage.cn:8888/",
-              "11":"http://117.74.140.173:8888/",
+              "11":"http://web11-nba.mobage.cn:8888/",
               "12":"http://117.74.140.167:8889/",
               "13":"http://119.15.139.19:8888/"
              }},
@@ -23,6 +23,7 @@ exports.data=[
                 "8":"web8-nba.mobage.cn",
                 "9":"web9-nba.mobage.cn",
                 "10":"web10-nba.mobage.cn"
+                "11":"web11-nba.mobage.cn"
 
            }}
 ]
