@@ -12,7 +12,7 @@ var script_path = "bin/daemon/";
 
 handler.index = function(req, res){
 
-                                var r1 = exec('ssh nba_web7 "date"');
+                                var r1 = exec('ssh nba_web8 "date"');
                                 r1.stdout.on('data', function(data){
                                                 res.locals.cnTime=data;
                                                 res.locals.tt = new Date().getTime();

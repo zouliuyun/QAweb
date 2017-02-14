@@ -11,7 +11,7 @@ var script_path = "bin/daemon/";
 
 handler.index = function(req, res){
                                 var p = parseInt(req.query.platform);
-                                var user_date = req.query.user_date;
+                                var user_date = String(req.query.user_date);
                                 user_date = user_date.replace(/T/,' ');
                                 console.log(user_date);
                                 if(p==1){
